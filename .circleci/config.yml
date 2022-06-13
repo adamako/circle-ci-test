@@ -7,22 +7,22 @@ version: 2.1
 commands:
   print_pipeline_id:
     parameters:
-      to:
+      workflow_id:
         default: "CIRCLE_WORKFLOW_ID"
-        type: env_var_name
+        type: string
     steps:
-      - run: echo "The circle ci id is <<parameters.to>>"
+      - run: echo "The circle ci id is <<parameters.workflow_id>>"
 jobs:
   print_pipeline:
     docker:
       - image: cimg/base:2020.01
     steps:
       - print_pipeline_id:
-          to: "$CIRCLE_WORKFLOW_ID"
+          workflow_id: "${CIRCLE_WORKFLOW_ID}"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  hello-world-workflow:
+  pipeline-workflow:
     jobs:
       - print_pipeline
